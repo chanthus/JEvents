@@ -1,7 +1,7 @@
 /**
  * Github project url: https://github.com/chanthus/JEvents
  * 
- * Copyright 2013 Chanthu Shamsu
+ * Copyright 2013 Chanthu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
