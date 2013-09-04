@@ -3,4 +3,12 @@ JEvents
 
 A non-annotation driven event framework for java
 
-Release Jar Download: https://github.com/chanthus/JEvents/blob/master/jevents-v1.0.jar?raw=true
+Release Jar Download
+--------------------
+
+https://github.com/chanthus/JEvents/blob/master/jevents-v1.0.jar?raw=true
+
+How to use
+----------
+
+*Coming soon*
