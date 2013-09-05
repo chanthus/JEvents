@@ -65,4 +65,4 @@ public class TestMain {
 	}
 }
 ````
-*More Coming soon*
+**See JEvents.Sample for a complete working sample**
