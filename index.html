@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jevents : A non-annotation driven event framework for java" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jevents</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/chanthus/JEvents">View on GitHub</a>
+
+          <h1 id="project_title">Jevents</h1>
+          <h2 id="project_tagline">A non-annotation driven event framework for java</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/chanthus/JEvents/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/chanthus/JEvents/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jevents" class="anchor" href="#jevents"><span class="octicon octicon-link"></span></a>JEvents</h1>
+
+<p>A non-annotation driven event framework for java that tries to mimic C# events.</p>
+
+<h2>
+<a name="release-jar-download" class="anchor" href="#release-jar-download"><span class="octicon octicon-link"></span></a>Release Jar Download</h2>
+
+<p><a href="https://github.com/chanthus/JEvents/blob/master/jevents-v1.0.jar?raw=true">https://github.com/chanthus/JEvents/blob/master/jevents-v1.0.jar?raw=true</a></p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p><strong>Step 1:</strong> Create an interface for the event (The following is just an example. It can be any interface)</p>
+
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IListener</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">listenerFired</span><span class="o">(</span><span class="n">String</span> <span class="n">string</span><span class="o">,</span> <span class="kt">int</span> <span class="n">integer</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><strong>Step 2:</strong> Initialize JEvent inside the class that has to act as the observable</p>
+
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassWithEvent</span> <span class="o">{</span>
+
+    <span class="c1">// Initialize an test event that has the IListener interface</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">JEvent</span><span class="o">&lt;</span><span class="n">IListener</span><span class="o">&gt;</span> <span class="n">event</span> <span class="o">=</span> <span class="n">JEvent</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">IListener</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="nf">ClassWithEvent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">changeText</span><span class="o">(</span><span class="s">"Firing event"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changeText</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Fires the event</span>
+        <span class="n">event</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">listenerFired</span><span class="o">(</span><span class="n">text</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         * NOTE: get() method of the event returns a proxy that has the same</span>
+<span class="cm">         * interface as the the interface used to construct the event.</span>
+<span class="cm">         * </span>
+<span class="cm">         * Calling get() method from any other class would return null. Only the</span>
+<span class="cm">         * owner of the event can invoke the event.</span>
+<span class="cm">         */</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><strong>Step 3:</strong> Registering for the event</p>
+
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestMain</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// Initialize the class with event</span>
+        <span class="n">ClassWithEvent</span> <span class="n">et</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassWithEvent</span><span class="o">();</span>
+
+        <span class="c1">// Register a class to receive event</span>
+        <span class="n">et</span><span class="o">.</span><span class="na">event</span><span class="o">.</span><span class="na">addListener</span><span class="o">(</span><span class="k">new</span> <span class="n">IListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">listenerFired</span><span class="o">(</span><span class="n">String</span> <span class="n">string</span><span class="o">,</span> <span class="kt">int</span> <span class="n">integer</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">string</span> <span class="o">+</span> <span class="s">" : "</span> <span class="o">+</span> <span class="n">integer</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         * NOTE: The event observer class does not have to be an anonymous </span>
+<span class="cm">         * inner class as shown in this example</span>
+<span class="cm">         */</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><strong>See JEvents.Sample for a complete working sample</strong></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jevents maintained by <a href="https://github.com/chanthus">chanthus</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
