@@ -19,6 +19,9 @@ public class Main {
 
 		ObserverFrame observer = new ObserverFrame(model);
 		observer.setTitle("Observer");
+		observer.setLocation(
+				observable.getLocation().x + observable.getWidth(),
+				observable.getLocation().y);
 		observer.setVisible(true);
 	}
 }

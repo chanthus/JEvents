@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.jws.WebParam.Mode;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,9 +17,14 @@ import javax.swing.SwingConstants;
 
 public class ObserverFrame extends JFrame implements ITextChanged {
 
+	private Model model;
 	private JLabel label;
 
-	public ObserverFrame(final Model model) {
+	public ObserverFrame(Model mdl) {
+		this.model = mdl;
+
+		// Register to receive event
+		model.textChanged.addListener(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 462, 200);
@@ -43,9 +49,6 @@ public class ObserverFrame extends JFrame implements ITextChanged {
 				label.setText("");
 			}
 		});
-
-		// Register to receive event
-		model.textChanged.addListener(this);
 	}
 
 	@Override
