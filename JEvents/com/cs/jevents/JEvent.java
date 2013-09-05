@@ -89,6 +89,13 @@ public final class JEvent<T> {
 
 	// ------------------- END STATIC CREATORS -------------------
 
+	/**
+	 * Returns an invoker proxy that can be used to invoke the event. NOTE: Only
+	 * the parent of the event can get the invoker. All other classes would get
+	 * null when this method is called.
+	 * 
+	 * @return The invoker interface
+	 */
 	public T get() {
 		synchronized (lock) {
 			if (hasPermisson()) {
@@ -99,6 +106,12 @@ public final class JEvent<T> {
 		}
 	}
 
+	/**
+	 * Register an observer to listen to the event
+	 * 
+	 * @param listener
+	 * @return <code>true</code> is adding is successful
+	 */
 	public boolean addListener(T listener) {
 		synchronized (lock) {
 			if (!listenersList.contains(listener)) {
@@ -109,6 +122,12 @@ public final class JEvent<T> {
 		}
 	}
 
+	/**
+	 * Removes an observer that is already listening to the event
+	 * 
+	 * @param listener
+	 * @return <code>true</code> is removing is successful
+	 */
 	public boolean removeListener(T listener) {
 		synchronized (lock) {
 			if (listenersList.contains(listener)) {
