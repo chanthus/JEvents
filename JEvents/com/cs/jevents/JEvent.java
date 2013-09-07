@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import com.cs.jevents.security.AbstractProvider;
 import com.cs.jevents.security.ReflectionProvider;
 
-public final class JEvent<T> {
+public class JEvent<T> {
 
 	private Object lock;
 
