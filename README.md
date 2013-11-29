@@ -1,7 +1,7 @@
 JEvents
 =======
 
-A non annotation driven event handling framework for java that mimics C# delegates and events.
+A non annotation driven java event handling framework that mimics C# delegates and events.
 
 Release Jar Download
 --------------------
