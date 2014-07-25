@@ -19,7 +19,7 @@ package com.cs.jevents.security;
 
 import sun.reflect.Reflection;
 
-public class ReflectionProvider extends AbstractProvider {
+public class ReflectionProvider implements ISecurityProvider {
 	@Override
 	public String getCallerClass(int level) {
 		return Reflection.getCallerClass(level).getName();

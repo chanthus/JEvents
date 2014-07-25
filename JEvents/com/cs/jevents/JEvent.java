@@ -20,7 +20,7 @@ package com.cs.jevents;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 
-import com.cs.jevents.security.AbstractProvider;
+import com.cs.jevents.security.ISecurityProvider;
 import com.cs.jevents.security.ReflectionProvider;
 
 public final class JEvent<T> {
@@ -31,7 +31,7 @@ public final class JEvent<T> {
 	private String permissionClass;
 	private ArrayList<T> listenersList;
 
-	private static AbstractProvider provider;
+	private static ISecurityProvider provider;
 
 	static {
 		provider = new ReflectionProvider();
@@ -154,7 +154,7 @@ public final class JEvent<T> {
 
 	// ------------------ START GLOBAL STATICS -------------------
 
-	public static synchronized void setSecurityProvider(AbstractProvider p) {
+	public static synchronized void setSecurityProvider(ISecurityProvider p) {
 		provider = p;
 	}
 

@@ -26,9 +26,8 @@ public class Main implements IListener {
 			@Override
 			public void listenerFired(String string, int integer) {
 				count++;
-				System.out
-						.println("PASS: Inner Class: Listener fired with String: "
-								+ string + " and Integer: " + integer);
+				p("PASS: Inner Class: Listener fired with String: " + string
+						+ " and Integer: " + integer);
 			}
 		});
 
@@ -36,8 +35,7 @@ public class Main implements IListener {
 			@Override
 			public void eventFired(Object sender, Object args) {
 				count++;
-				System.out.println("PASS: Default Listener Fired with args: "
-						+ args);
+				p("PASS: Default Listener Fired with args: " + args);
 			}
 		});
 
@@ -46,8 +44,8 @@ public class Main implements IListener {
 		JEvent<IListener> event = JEvent.create(IListener.class);
 		event.get().listenerFired("", 0);
 
-		System.out.println("Construction Time millis: "
-				+ (System.currentTimeMillis() - start) + "\n");
+		p("Construction Time millis: " + (System.currentTimeMillis() - start)
+				+ "\n");
 
 		Main main = new Main();
 
@@ -60,52 +58,51 @@ public class Main implements IListener {
 
 		try {
 			et.firePublic();
-			System.out.println("PASS: Modified listener list while invoking");
+			p("PASS: Modified listener list while invoking");
 		} catch (Exception e) {
-			System.out.println("FAIL: Modified listener list while invoking");
+			p("FAIL: Modified listener list while invoking");
 		}
 
-		System.out.println("\nInvoking Time millis: "
-				+ (System.currentTimeMillis() - start) + "\n");
+		p("\nInvoking Time millis: " + (System.currentTimeMillis() - start)
+				+ "\n");
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					et.event.get().listenerFired("Chanthu", 2);
-					System.out
-							.println("FAIL: Invoked event from an external thread!");
+					p("FAIL: Invoked event from an external thread!");
 				} catch (Exception ex) {
-					System.out
-							.println("PASS: Failed to invoke event from an external thread!");
+					p("PASS: Failed to invoke event from an external thread!");
 				}
 			}
 		}).start();
 
 		try {
 			et.event.get().listenerFired("Chanthu1", 20);
-			System.out.println("FAIL: Invoked event from an external class!");
+			p("FAIL: Invoked event from an external class!");
 		} catch (Exception e) {
-			System.out
-					.println("PASS: Failed to invoke event from an external class!");
+			p("PASS: Failed to invoke event from an external class!");
 		}
 
 		String clearSuccess = et.event.clear() == true ? "FAIL" : "PASS";
-		System.out.println(clearSuccess
-				+ ": Listener clearing from external class");
+		p(clearSuccess + ": Listener clearing from external class");
 
 		clearSuccess = et.clear() == false ? "FAIL" : "PASS";
-		System.out.println(clearSuccess
-				+ ": Listener clearing from external class");
+		p(clearSuccess + ": Listener clearing from external class");
 
 		clearSuccess = count != 4 ? "FAIL" : "PASS";
-		System.out.println(clearSuccess + ": Invoked count is 4");
+		p(clearSuccess + ": Invoked count is 4");
 	}
 
 	@Override
 	public void listenerFired(String string, int integer) {
 		count++;
-		System.out.println("PASS: Implementation: Listener fired with String: "
-				+ string + " and Integer: " + integer);
+		p("PASS: Implementation: Listener fired with String: " + string
+				+ " and Integer: " + integer);
+	}
+
+	private static void p(Object toPrint) {
+		System.out.println(toPrint);
 	}
 }

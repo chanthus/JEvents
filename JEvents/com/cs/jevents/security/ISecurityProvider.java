@@ -17,9 +17,6 @@
  */
 package com.cs.jevents.security;
 
-public class StacktraceProvider implements ISecurityProvider {
-	@Override
-	public String getCallerClass(int level) {
-		return Thread.currentThread().getStackTrace()[level].getClassName();
-	}
+public interface ISecurityProvider {
+	public String getCallerClass(int level);
 }
