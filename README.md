@@ -6,7 +6,7 @@ A non annotation driven java event handling framework that mimics C# delegates a
 Release Jar Download
 --------------------
 
-https://github.com/chanthus/JEvents/blob/master/jevents-v1.1.jar?raw=true
+[Download](https://github.com/chanthus/JEvents/blob/master/release/jevents-1.0.jar?raw=true)
 
 How to use
 ----------
