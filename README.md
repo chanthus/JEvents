@@ -1,4 +1,4 @@
-JEvents
+JEvents [![Build Status](https://snap-ci.com/chanthus/JEvents/branch/master/build_image)](https://snap-ci.com/chanthus/JEvents/branch/master)
 =======
 
 A non annotation driven java event handling framework that mimics C# delegates and events.
