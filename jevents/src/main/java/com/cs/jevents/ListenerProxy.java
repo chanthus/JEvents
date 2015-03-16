@@ -1,6 +1,6 @@
 /**
  * Github project url: https://github.com/chanthus/JEvents
- * 
+ *
  * Copyright 2013 Chanthu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,30 +23,29 @@ import java.util.ArrayList;
 
 public final class ListenerProxy<T> implements InvocationHandler {
 
-	private Object lock;
-	private ArrayList<T> listenersList;
+    private Object lock;
+    private ArrayList<T> listenersList;
 
-	public ListenerProxy(ArrayList<T> listenersList, Object lock) {
-		this.lock = lock;
-		this.listenersList = listenersList;
-	}
+    public ListenerProxy(ArrayList<T> listenersList, Object lock) {
+        this.lock = lock;
+        this.listenersList = listenersList;
+    }
 
-	@Override
-	public Object invoke(Object proxy, Method m, Object[] args)
-			throws Throwable {
+    @Override
+    public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
 
-		synchronized (lock) {
-			for (int i = listenersList.size() - 1; i >= 0; i--) {
-				T listener = listenersList.get(i);
+        synchronized (lock) {
+            for (int i = listenersList.size() - 1; i >= 0; i--) {
+                T listener = listenersList.get(i);
 
-				try {
-					m.invoke(listener, args);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+                try {
+                    m.invoke(listener, args);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-			return null;
-		}
-	}
+            return null;
+        }
+    }
 }

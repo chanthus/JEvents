@@ -17,18 +17,18 @@
  */
 package com.cs.jevents;
 
-import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-
 import com.cs.jevents.security.ISecurityProvider;
 import com.cs.jevents.security.ReflectionProvider;
+
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 
 public final class JEvent<T> {
 
     private Object lock;
 
     private T listener;
-    private String permissionClass;
+    private String permissionClassName;
     private ArrayList<T> listenersList;
 
     private static ISecurityProvider securityProvider;
@@ -44,17 +44,6 @@ public final class JEvent<T> {
         listenersList = new ArrayList<T>();
     }
 
-    public JEvent(Class<T> classType, String permissionClass) {
-        this();
-
-        this.permissionClass = permissionClass;
-        this.listener = (T) Proxy.newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[]{classType},
-                new ListenerProxy<T>(listenersList, lock)
-        );
-    }
-
     public JEvent(Class<T> classType) {
         this(classType, securityProvider.getCallerClass(3));
     }
@@ -63,13 +52,17 @@ public final class JEvent<T> {
         this(classType, permissionClass.getName());
     }
 
+    public JEvent(Class<T> classType, String permissionClassName) {
+        this();
+
+        this.permissionClassName = permissionClassName;
+        ListenerProxy<T> listenerProxy = new ListenerProxy<T>(listenersList, lock);
+        this.listener = (T) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{classType}, listenerProxy);
+    }
+
     // --------------------- END CONSTRUCTORS --------------------
 
     // ------------------ START STATIC CREATORS ------------------
-
-    public static JEvent<IDefaultListener> create() {
-        return new JEvent<IDefaultListener>(IDefaultListener.class, securityProvider.getCallerClass(3));
-    }
 
     public static <I> JEvent<I> create(Class<I> classType) {
         return new JEvent<I>(classType, securityProvider.getCallerClass(3));
@@ -77,6 +70,10 @@ public final class JEvent<T> {
 
     public static <I> JEvent<I> create(Class<I> classType, Class<?> permissionClass) {
         return new JEvent<I>(classType, permissionClass);
+    }
+
+    public static JEvent<IDefaultListener> create() {
+        return new JEvent<IDefaultListener>(IDefaultListener.class, securityProvider.getCallerClass(3));
     }
 
     // ------------------- END STATIC CREATORS -------------------
@@ -141,7 +138,7 @@ public final class JEvent<T> {
     }
 
     private boolean hasPermission() {
-        return securityProvider.getCallerClass(4).equals(permissionClass);
+        return securityProvider.getCallerClass(4).equals(permissionClassName);
     }
 
     // ------------------ START GLOBAL STATICS -------------------
