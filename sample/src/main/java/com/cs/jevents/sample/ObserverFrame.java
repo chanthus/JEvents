@@ -1,16 +1,11 @@
 package com.cs.jevents.sample;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-public class ObserverFrame extends JFrame implements ITextChanged {
+public class ObserverFrame extends JFrame implements TextChanged {
 
     private Model model;
     private JLabel label;

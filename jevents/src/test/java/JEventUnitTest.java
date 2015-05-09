@@ -1,4 +1,3 @@
-import com.cs.jevents.security.StacktraceProvider;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

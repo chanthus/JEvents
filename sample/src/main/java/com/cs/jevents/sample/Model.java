@@ -5,7 +5,7 @@ import com.cs.jevents.JEvent;
 public class Model {
 
 	// Initialize the event
-	public final JEvent<ITextChanged> textChanged = JEvent.create(ITextChanged.class);
+	public final JEvent<TextChanged> textChanged = JEvent.create(TextChanged.class);
 
 	private String text;
 

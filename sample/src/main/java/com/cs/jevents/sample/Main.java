@@ -1,6 +1,6 @@
 package com.cs.jevents.sample;
 
-import javax.swing.UIManager;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
