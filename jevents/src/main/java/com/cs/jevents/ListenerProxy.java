@@ -2,7 +2,6 @@ package com.cs.jevents;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 public final class ListenerProxy<T> implements InvocationHandler {
